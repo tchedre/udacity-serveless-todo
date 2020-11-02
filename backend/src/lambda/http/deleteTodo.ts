@@ -17,7 +17,7 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
   const jwtToken = split[1];
   const userId = parseUserId(jwtToken);
   logger.info(`User ${userId} deleting todo ${todoId}`)
-  await deleteTodo(todoId);
+  await deleteTodo(todoId, userId);
   
   return {
     statusCode: 204,

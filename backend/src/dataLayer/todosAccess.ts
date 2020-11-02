@@ -48,22 +48,24 @@ export class TodosAccess {
     return item as TodoItem;
 }
 
-async deleteTodo(todoId: string): Promise<void> {
+async deleteTodo(todoId: string, userId: string): Promise<void> {
     this.docClient
         .delete({
             TableName: this.todosTable,
             Key: {
-                todoId
+                todoId,
+                userId
             },
         })
         .promise();
 }
 
-async updateTodo(todoId:string, updatedTodo:UpdateTodoRequest){
+async updateTodo(todoId:string, userId: string, updatedTodo:UpdateTodoRequest){
     await this.docClient.update({
         TableName: this.todosTable,
         Key:{
-            'todoId':todoId
+            'todoId':todoId,
+            'userId':userId
         },
         UpdateExpression: 'set #namefield = :n, dueDate = :d, done = :done',
         ExpressionAttributeValues: {
@@ -79,13 +81,15 @@ async updateTodo(todoId:string, updatedTodo:UpdateTodoRequest){
 
 public async setAttachmentUrl(
     todoId: string,
+    userId: string,
     attachmentUrl: string,
 ): Promise<void> {
     this.docClient
         .update({
             TableName: this.todosTable,
             Key: {
-                todoId
+                todoId,
+                userId
             },
             UpdateExpression: 'set attachmentUrl = :attachmentUrl',
             ExpressionAttributeValues: {

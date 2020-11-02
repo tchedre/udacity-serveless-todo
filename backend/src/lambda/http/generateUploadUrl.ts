@@ -42,6 +42,7 @@ try {
     logger.info(`upload Todo ${todoId} url for user ${userId}`);
     setAttachmentUrl(
         todoId,
+        userId,
         `https://${bucketName}.s3.amazonaws.com/${imageId}`
     );
 

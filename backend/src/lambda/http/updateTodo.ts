@@ -21,7 +21,7 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
   const jwtToken = split[1];
   const userId = parseUserId(jwtToken);
   logger.info(`User ${userId} update todo ${todoId} with values ${updatedTodo}`)
-  await updateTodo(todoId, updatedTodo);
+  await updateTodo(todoId, userId, updatedTodo);
   return {
     statusCode: 204,
     headers: {

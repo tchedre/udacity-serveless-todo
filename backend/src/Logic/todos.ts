@@ -31,26 +31,29 @@ export async function createTodo(
 
 export async function deleteTodo(
   todoId: string,
+  userId: string
 ): Promise<void> {
   const todo = await todoAccess.getTodo(todoId);
 
-  todoAccess.deleteTodo(todo.todoId);
+  todoAccess.deleteTodo(todo.todoId, userId);
 }
 
 export async function updateTodo(
   todoId: string,
+  userId: string,
   updateTodoRequest: UpdateTodoRequest
 ): Promise<void> {
   const todo = await todoAccess.getTodo(todoId);
 
-  todoAccess.updateTodo(todo.todoId, updateTodoRequest);
+  todoAccess.updateTodo(todo.todoId, userId, updateTodoRequest);
 }
 
 export async function setAttachmentUrl(
   todoId: string,
+  userId: string,
   attachmentUrl: string,
 ): Promise<void> {
   const todo = await todoAccess.getTodo(todoId);
 
-  todoAccess.setAttachmentUrl(todo.todoId, attachmentUrl);
+  todoAccess.setAttachmentUrl(todo.todoId, userId, attachmentUrl);
 }
